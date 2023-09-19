@@ -1,5 +1,6 @@
 import React from 'react';
 import {LiaShoppingBagSolid} from 'react-icons/lia'
+import Logo from './Logo';
 
 const links = [
   {name: 'Home'},
@@ -13,9 +14,7 @@ const Header = () => {
   return (
     <div className='w-full h-20 bg-white border-b-[1px] border-b-gray-800 font-titleFont'>
       <div className='max-w-screen-xl h-full mx-auto flex items-center justify-between'>
-        <div>
-          <p className='px-2 py-1 text-3xl font-extrabold text-gray-800 border-l-orange-900 border-l-[3px] border-b-orange-900 border-b-[3px] w-fit'> GuruLine</p>
-        </div>
+        <Logo color={'white'} />
         <div className='flex items-center justify-center gap-6'>
           <ul className='flex items-end gap-8'>
             {
@@ -31,7 +30,7 @@ const Header = () => {
           </ul>
           <div className='relative'>
             <LiaShoppingBagSolid size={40} />
-            <span className='absolute w-6 top-4 left-2 text-sm flex items-center justify-center font-semibold'>0</span>
+            <span className='absolute w-6 top-4 left-2 text-sm flex items-center justify-center font-semibold text-orange-900'>0</span>
           </div>
             <img
             className='w-8 h-8 rounded-full' 

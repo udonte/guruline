@@ -1,0 +1,1 @@
+import Banner1 from './'
