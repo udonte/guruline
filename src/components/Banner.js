@@ -17,7 +17,6 @@ const Banner = () => {
     // If currentSlide is 3, set it to 0, otherwise increment it by 1
     setcurrentSlide((prev ) => (prev === 3 ? 0 : prev + 1));
   };
-  console.log(currentSlide);   
 
   return (
     <div className='w-full h-auto overflow-x-hidden'>

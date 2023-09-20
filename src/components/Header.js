@@ -1,6 +1,7 @@
 import React from 'react';
 import {LiaShoppingBagSolid} from 'react-icons/lia'
 import Logo from './Logo';
+import { Link } from 'react-router-dom';
 
 const links = [
   {name: 'Home'},
@@ -12,9 +13,11 @@ const links = [
 
 const Header = () => {
   return (
-    <div className='w-full h-20 bg-white border-b-[1px] border-b-gray-800 font-titleFont'>
+    <div className='w-full h-20 bg-white border-b-[1px] border-b-gray-800 font-titleFont sticky top-0 z-50'>
       <div className='max-w-screen-xl h-full mx-auto flex items-center justify-between'>
-        <Logo color={'white'} />
+        <Link to='/'>
+          <Logo color={'white'} />
+        </Link>
         <div className='flex items-center justify-center gap-6'>
           <ul className='flex items-end gap-8'>
             {
@@ -29,8 +32,8 @@ const Header = () => {
             }
           </ul>
           <div className='relative'>
-            <LiaShoppingBagSolid size={40} />
-            <span className='absolute w-6 top-4 left-2 text-sm flex items-center justify-center font-semibold text-orange-900'>0</span>
+            <LiaShoppingBagSolid size={40} color='rgb(124 45 18 )' />
+            <span className='absolute w-6 top-4 left-2 text-sm flex items-center justify-center font-semibold'>0</span>
           </div>
             <img
             className='w-8 h-8 rounded-full' 
