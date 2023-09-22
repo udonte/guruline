@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import {MdOutlineStar} from 'react-icons/md'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../redux/gurulineSlice'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Product = () => {
 
   const [details, setDetails] = useState({})
+  const [baseQty, setBaseQty] = useState(1)
+  const dispatch = useDispatch();
 
   const location = useLocation();
 
@@ -12,6 +17,7 @@ const Product = () => {
     setDetails(location.state.item);
   }, [location])
 
+  
 
   return (
     <div>
@@ -58,23 +64,53 @@ const Product = () => {
             <div className='w-52 flex items-center justify-center text-gray-500 gap-4 border p-3'>
               <p className='text-sm'>Quantity</p>
               <div className='flex items-center gap-4 text-sm font-semibold'>
-              <button className='border h-5 font-normal text-lg flex items-center justify-center p-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black'>
+              <button 
+                className='border h-5 font-normal text-lg flex items-center justify-center p-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black'
+                onClick={() => setBaseQty(baseQty === 1 ? baseQty + 1 : baseQty - 1)}
+                > 
                 -
                 </button>
-              <span>{1}</span>
-              <button className='border h-5 font-normal text-lg flex items-center justify-center p-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black'>
+              <span>{baseQty}</span>
+              <button 
+                className='border h-5 font-normal text-lg flex items-center justify-center p-2 hover:bg-gray-700 hover:text-white cursor-pointer duration-300 active:bg-black'
+                onClick={() => setBaseQty(baseQty + 1)}
+                >
                 +
               </button>
               </div>
             </div>
           {/* add to cart */}
-          <button className='bg-black text-white py-3 px-6 active:bg-gray-800'>add to cart</button>
+          <button 
+            onClick={() => dispatch(addToCart({
+              _id: details.id,
+              title: details.title,
+              image: details.image,
+              quantity: baseQty,
+              description: details.description,
+            })
+            ) && toast.success(`${details.title} is added`)
+          }
+            className='bg-black text-white py-3 px-6 active:bg-gray-800'>add to cart</button>
           </div>
 
-          <p className='text-base text-gray-500'>Category: {' '}  <span className='font-medium capitalize'>{details.category}</span></p>
+          <p className='text-base text-gray-500'>Category: {' '}  <span className='font-medium capitalize'>{details.category}</span>
+          </p>
         </div>
-
       </div>
+      
+      {/* toastify */}
+      <ToastContainer
+        position='top-left'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='dark'
+      />
     </div>
   )
 }

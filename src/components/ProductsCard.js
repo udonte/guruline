@@ -1,8 +1,13 @@
 import React from 'react'
 import { BsArrowRight } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addToCart } from '../redux/gurulineSlice';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ProductsCard = ({product}) => {
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -47,6 +52,15 @@ const ProductsCard = ({product}) => {
             </div>
             <p 
               className='absolute z-20 w-[100px] text-gray-500 hover:text-gray-900 flex items-center gap-1 top-0 transform -translate-x-32 group-hover:translate-x-0 transition-transform cursor-pointer duration-500'
+              onClick={() => dispatch(addToCart({
+                _id: product._id,
+                title: product.title,
+                image: product.price,
+                quantity: 1,
+                dscription: product.description,
+              })
+              ) && toast.success(`${product.title} is added`)
+            }
               >
               add to cart <span ><BsArrowRight /></span> </p>
           </div>
@@ -59,12 +73,23 @@ const ProductsCard = ({product}) => {
 
         <div className='absolute top-4 right-0'>
           {
-            product.isNew && <p className='bg-black text-white font-semibold font-titleFont px-8 py-1'>Sale</p>
-          }
+            product.isNew && ( <p className='bg-black text-white font-semibold font-titleFont px-8 py-1'>Sale</p>
+          )}
         </div>
-
-
       </div>
+      {/* toastify */}
+      <ToastContainer
+        position='top-left'
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='dark'
+      />
 
     </div>
   )
