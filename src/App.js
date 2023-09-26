@@ -1,11 +1,17 @@
-import React from 'react'
-import Home from './pages/Home'
-import Header from './components/Header'
-import { createBrowserRouter, Outlet, RouterProvider, ScrollRestoration } from 'react-router-dom'
-import Footer from './components/Footer'
-import Cart from './pages/Cart'
-import { productsData } from './api/Api'
-import Product from './pages/Product'
+import React from "react";
+import Home from "./pages/Home";
+import Header from "./components/Header";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  ScrollRestoration,
+} from "react-router-dom";
+import Footer from "./components/Footer";
+import Cart from "./pages/Cart";
+import { productsData } from "./api/Api";
+import Product from "./pages/Product";
+import Login from "./pages/Login";
 
 const Layout = () => (
   <div>
@@ -14,39 +20,40 @@ const Layout = () => (
     <Outlet />
     <Footer />
   </div>
-)
+);
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
-        loader: productsData
+        loader: productsData,
       },
       {
-        path: '/product/:id',
-        element: <Product />
+        path: "/product/:id",
+        element: <Product />,
       },
       {
-        path: '/cart',
-        element: <Cart />
+        path: "/cart",
+        element: <Cart />,
       },
-
-    ]
-  }
-])
-
+      {
+        path: "/login",
+        element: <Login />,
+      },
+    ],
+  },
+]);
 
 const App = () => {
   return (
-    <div className='font-bodyFont'>
+    <div className="font-bodyFont">
       <RouterProvider router={router} />
     </div>
-    
-  )
-}
+  );
+};
 
-export default App
+export default App;
