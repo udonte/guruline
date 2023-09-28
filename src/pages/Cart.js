@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CartItem from "../components/CartItem";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import StripeCheckout from "react-stripe-checkout";
 
 const Cart = () => {
   const productData = useSelector((state) => state.guruline.productData);
+  const userInfo = useSelector((state) => state.guruline.userInfo);
   const [totalAmt, setTotalAmt] = useState("");
+  const [payNow, setPayNow] = useState(false);
 
   useEffect(() => {
     let price = 0;
@@ -16,6 +19,14 @@ const Cart = () => {
     });
     setTotalAmt(price.toFixed(2));
   }, [productData]);
+
+  const handleCheckout = () => {
+    if (userInfo) {
+      setPayNow(true);
+    } else {
+      toast.error("Please sign in to Checkout");
+    }
+  };
 
   return (
     <div>
@@ -45,9 +56,25 @@ const Cart = () => {
             <p className="font-titleFont font-semibold flex justify-between mt-6">
               Total <span className="text-xl font-bold">$ {totalAmt}</span>
             </p>
-            <button className="bg-black text-base text-white w-full py-3 mt-6 hover:bg-gray-800 duration-300 rounded">
+            <button
+              onClick={handleCheckout}
+              className="bg-black text-base text-white w-full py-3 mt-6 hover:bg-gray-800 duration-300 rounded"
+            >
               proceed to checkout
             </button>
+            {payNow && (
+              <div className="w-full mt-6 flex items-center justify-center">
+                <StripeCheckout
+                  stripeKey="pk_test_51LXpmzBcfNkwYgIpxD3qq3e2m5JY0pvhaNZG7KSCk1YpVyTCVGQATRH8tTWxOjRVpUZmOWUEHnTxd00UXObBHkc"
+                  name="Bazar Online Shopping"
+                  amount={totalAmt * 100}
+                  label="Pay to GuruLine"
+                  description={`Your payment amount is 4${totalAmt}`}
+                  // token={payment}
+                  email={userInfo.email}
+                />
+              </div>
+            )}
           </div>
         </div>
         <ToastContainer

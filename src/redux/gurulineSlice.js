@@ -62,6 +62,14 @@ export const gurulineSlice = createSlice({
         }
       }
     },
+    // user start here
+    addUser: (state, action) => {
+      state.userInfo = action.payload;
+    },
+    removeUser: (state) => {
+      state.userInfo = null;
+    },
+    // user end here
   },
 });
 
@@ -71,6 +79,8 @@ export const {
   resetCart,
   incrementQuantity,
   decrementQuantity,
+  addUser,
+  removeUser,
 } = gurulineSlice.actions;
 
 export default gurulineSlice.reducer;

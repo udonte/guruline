@@ -17,7 +17,6 @@ import { HiOutlineArrowLeft } from "react-icons/hi";
 const CartItem = () => {
   const productData = useSelector((state) => state.guruline.productData);
   const dispatch = useDispatch();
-  console.log(productData);
 
   return (
     <div className="w-2/3 pr-10">
